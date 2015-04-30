@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd /home/pi/PrintToPeer/bin
+echo "./burijji-py.py $*"
+./burijji-py.py $* | /home/pi/PrintToPeer/bin/log.sh /home/pi/PrintToPeer/logs/burijji.log

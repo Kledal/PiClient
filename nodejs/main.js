@@ -37,8 +37,6 @@ var x3g_settings = {
   'has_heated_bed': 'true'
 };
 
-var answered = false;
-
 var machines_connected = [];
 
 var clients = [];
@@ -60,18 +58,21 @@ wsServer.on('request', function(request) {
         console.log("Msg header: " + msg[0]);
 
         switch(header) {
+
           case "server.machine_connected":
             var uuid = payload.uuid;
             var exists = _.where(machines_connected, {uuid: uuid});
             if (exists.length > 0) { return; }
             machines_connected.push({uuid: uuid});
           break;
+
           case "server.machine_disconnected":
             var uuid = payload.uuid;
             var exists = _.where(machines_connected, {uuid: uuid});
             if (exists.length == 0) { return; }
             machines_connected = _.reject(machines_connected, function(machine) { return machine.uuid == uuid; });
           break;
+
           case "server.update_data":
             console.log(payload);
 
@@ -91,6 +92,7 @@ wsServer.on('request', function(request) {
                 machines_connected.push({uuid: key});
               }
             });
+
             if (_.size(machines_not_connected) > 0) {
               console.log("Send connect machines");
               var output = JSON.stringify([ ["connect_machines", {data: machines_not_connected}] ]);
@@ -113,7 +115,6 @@ wsServer.on('request', function(request) {
     });
 
     connection.on('close', function(connection) {
-      answered = false;
       console.log("Connection closed");
       clients.splice(index, 1);
     });

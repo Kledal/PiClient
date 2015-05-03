@@ -60,7 +60,7 @@ class Machine < EventMachine::Connection
     return nil if !data.is_a?(Hash) || (data.is_a?(Hash) && data.empty?)
 
     @connected           ||= true
-    @temperatures[:bed]    = data[:b]
+    @temperatures[:bed]    = data.select{|key| key.to_s.start_with?('b')}.values
     @temperatures[:nozzle] = data.select{|key| key.to_s.start_with?('t')}.values
   end
 

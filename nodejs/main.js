@@ -20,14 +20,14 @@ var server = http.createServer(function(request, response) {
       break;
 
       case '/send_cmd':
-        var uuid = "00000000000051D7E016";
+        var uuid = "55330343434351D072C1";
         var machine = machines_connected[uuid];
         var c_id = machine.client_id;
         var c_connection = clients[c_id];
       break;
 
       case '/cancel_print':
-        var uuid = "00000000000051D7E016";
+        var uuid = "55330343434351D072C1";
         var machine = machines_connected[uuid];
         var c_id = machine.client_id;
         var c_connection = clients[c_id];
@@ -45,7 +45,7 @@ var server = http.createServer(function(request, response) {
       break;
 
       case '/start_print':
-        var uuid = "00000000000051D7E016";
+        var uuid = "55330343434351D072C1";
         var path = params['url'] || "http://data01.gratisupload.dk/f/8rge1r24h9.gcode";
         var machine = machines_connected[uuid];
         var c_id = machine.client_id;
